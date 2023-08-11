@@ -1,15 +1,46 @@
-Source: template-repository
-Section: unknown
+Source: furo
+Section: python
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Georges Khaznadar <georgesk@debian.org>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ python3,
+ python3-setuptools,
+ python3-wheel,
+ python3-build,
+ python3-sphinx,
+ python3-bs4,
+ python3-pygments,
+ dh-python,
+ pybuild-plugin-pyproject,
+ sassc,
+Standards-Version: 4.6.2
+Homepage: https://pradyunsg.me/furo/
+Vcs-Browser: https://salsa.debian.org/debian/furo
+Vcs-Git: https://salsa.debian.org/debian/furo.git
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: furo
+Architecture: all
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ python3,
+ python3-bs4,
+ python3-pygments,
+ python3-sphinx,
+ node-normalize.css,
+ sphinx-basic-ng
+Description: clean customisable Sphinx documentation theme
+ Furo is a clean customisable Sphinx documentation theme ...
+  - Intentionally minimal — the most important thing is the content,
+    not the scaffolding around it.
+  - Responsive — adapting perfectly to the available screen space,
+    to work on all sorts of devices.
+  - Customisable — change the color palette, font families, logo and more!
+  - Easy to navigate — with carefully-designed sidebar navigation and
+    inter-page links.
+  - Good looking content — through clear typography and well-stylised elements.
+  - Good looking search — helps readers find what they want quickly.
+  - Biased for smaller docsets — intended for smaller documentation sets,
+    where presenting the entire hierarchy in the sidebar is not overwhelming.

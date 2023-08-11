@@ -1,0 +1,22 @@
+Removing the dependency on sphinx-theme-builder, which is not
+in Debian, and quite useless in this particular case
+
+Index: furo/pyproject.toml
+===================================================================
+--- furo.orig/pyproject.toml
++++ furo/pyproject.toml
+@@ -1,12 +1,6 @@
+ [build-system]
+-requires = ["sphinx-theme-builder >= 0.2.0a10"]
+-build-backend = "sphinx_theme_builder"
+-
+-[tool.sphinx-theme-builder]
+-node-version = "18.16.0"
+-additional-compiled-static-assets = [
+-  "styles/furo-extensions.css",
+-]
++requires = ["setuptools>=40.8.0", "wheel"]
++build-backend = "setuptools.build_meta:__legacy__"
+ 
+ [project]
+ name = "furo"
