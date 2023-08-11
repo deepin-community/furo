@@ -1,5 +1,69 @@
-template-repository (1.0-1) unstable; urgency=medium
+furo (2023.07.26+dfsg-1) unstable; urgency=medium
 
-  * Initial release
+  * New upstream version 2023.07.26+dfsg
+  * updated debian patches
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Georges Khaznadar <georgesk@debian.org>  Mon, 07 Aug 2023 10:44:26 +0200
+
+furo (2023.05.20+dfsg-2) unstable; urgency=medium
+
+  * upload to unstable
+
+ -- Georges Khaznadar <georgesk@debian.org>  Sun, 11 Jun 2023 12:06:25 +0200
+
+furo (2023.05.20+dfsg-1) experimental; urgency=medium
+
+  * New upstream version 2023.05.20+dfsg
+  * refreshed the debian patch
+
+ -- Georges Khaznadar <georgesk@debian.org>  Mon, 29 May 2023 14:22:17 +0200
+
+furo (2023.03.27+dfsg-1) experimental; urgency=medium
+
+  * New upstream version 2023.03.27+dfsg
+  * Bumped Standards-Version: 4.6.2
+
+ -- Georges Khaznadar <georgesk@debian.org>  Mon, 01 May 2023 17:39:22 +0200
+
+furo (2022.12.07+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2022.12.07+dfsg
+
+ -- Georges Khaznadar <georgesk@debian.org>  Tue, 20 Dec 2022 13:59:09 +0100
+
+furo (2022.09.29+dfsg-3) unstable; urgency=medium
+
+  * upload the source package to unstable
+
+ -- Georges Khaznadar <georgesk@debian.org>  Sat, 12 Nov 2022 09:35:40 +0100
+
+furo (2022.09.29+dfsg-2) experimental; urgency=medium
+
+  * Removed the useless references to "Open Software License" in
+    debian/copyright, just keeping the comment about Files-Exluded
+
+ -- Georges Khaznadar <georgesk@debian.org>  Thu, 10 Nov 2022 11:01:40 +0100
+
+furo (2022.09.29+dfsg-1) experimental; urgency=medium
+
+  * defined Excluded-Files, modified d/watch to repack the source,
+    thanks to Thorsten Alteholz' message notifying that
+    "Open Software License" must be considered non-free.
+  * Changed the debian packaging, due to useful hints from Jonas Smedegaard:
+    see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=992743
+    + removed the big debian patches, which were manually prepared with
+      non-debian tools, and manually reviewed.
+    + created debian/patches/pyproject.patch to rule out Pradyun Gedam's
+      sphinx_theme_builder, which used webpack and non-debian plugins
+      to compile and minimize SASS files and JS scripts. Now, pybuild
+      will invoke setuptools to build the package.
+    + edited the target override_dh_auto_build to compile SASS files
+      with sassc (this implies debian/patches/sass.patch which
+      irons out some syntactic details which are not interpreted by
+      sassc)
+    + modified the way JS files are gathered for the binary package:
+      a genuine copy is made, where original webpack's actions concatenated
+      two scripts and minimized them down.
+  * Initial release. (Closes: #1023449)
+
+ -- Georges Khaznadar <georgesk@debian.org>  Thu, 10 Nov 2022 10:07:29 +0100

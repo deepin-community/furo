@@ -1,4 +1,41 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@
+	dh $@ --with python3 --buildsystem=pybuild
+
+PYTHON3		= $(shell readlink /usr/bin/python3)
+
+SASSDIR        	= src/furo/assets/styles
+STATICBUILDDIR	= build/lib/furo/theme/furo/static
+CSSDIR  	= $(STATICBUILDDIR)/styles
+JSDIR   	= $(STATICBUILDDIR)/scripts
+PKGTHEMEDIR	= debian/furo/usr/lib/$(PYTHON3)/dist-packages/furo/theme/furo
+
+NORMALIZECSS 	= /javascript/normalize.css/normalize.css
+
+override_dh_auto_build:
+	dh_auto_build
+	# compile SASS files to CSS
+	mkdir -p $(CSSDIR)
+	sassc $(SASSDIR)/furo.sass > $(CSSDIR)/furo.css
+	sassc $(SASSDIR)/furo-extensions.sass > $(CSSDIR)/furo-extensions.css
+	# fix one sass' caveat, which does not interpret
+	# '@import "~normalize.css"'
+	sed -i 's%~normalize.css%$(NORMALIZECSS)%' $(CSSDIR)/furo.css
+	# copy JS scripts: no uglification, no simplification
+	mkdir -p $(JSDIR)
+	install -m 644 src/furo/assets/scripts/* $(JSDIR)
+
+override_dh_auto_clean:
+	rm -rf .pybuild/ build/
+	rm -rf .sass-cache/
+	rm -f $(CSSDIR)/* $(JSDIR)/*
+	rm -rf src/*.egg-info
+
+override_dh_install:
+	dh_install
+	install -d $(PKGTHEMEDIR)/static
+	cp -a $(STATICBUILDDIR)/scripts $(PKGTHEMEDIR)/static
+	cp -a $(STATICBUILDDIR)/styles $(PKGTHEMEDIR)/static
+	# remove .gitignore files from the binary package
+	find debian/furo -name .gitignore | xargs rm -f

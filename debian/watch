@@ -1,0 +1,8 @@
+version=4
+
+# GitHub hosted projects.
+opts="dversionmangle=auto, \
+   repacksuffix=+dfsg, repack, \
+   filenamemangle=s%(?:.*?)?v?(@ANY_VERSION@@ARCHIVE_EXT@)%@PACKAGE@-$1%" \
+https://github.com/pradyunsg/furo/tags \
+    (?:.*?/)v?@ANY_VERSION@@ARCHIVE_EXT@

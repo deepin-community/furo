@@ -1,0 +1,3 @@
+# the too long line is a SVG drawing, it is not necessary to raise an
+# error for it.
+furo source: source-is-missing [src/furo/theme/furo/page.html]
