@@ -1,0 +1,12 @@
+tackle out the case where exprts from gumshoe-patched.js
+are not named "Gumshoe"
+Index: furo/src/furo/assets/scripts/furo.js
+===================================================================
+--- furo.orig/src/furo/assets/scripts/furo.js
++++ furo/src/furo/assets/scripts/furo.js
+@@ -1,4 +1,4 @@
+-import Gumshoe from "./gumshoe-patched.js";
++import * as Gumshoe from "./gumshoe-patched.js";
+ 
+ ////////////////////////////////////////////////////////////////////////////////
+ // Scroll Handling

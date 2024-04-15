@@ -1,0 +1,27 @@
+furo.js is added as:
+<script src="_static/scripts/furo.js" type="module"></script>
+app.add_js_file parameters are appended the keyword type, which
+is allowed per the documentation of add_js_file; see:
+https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_js_file
+
+Index: furo/src/furo/__init__.py
+===================================================================
+--- furo.orig/src/furo/__init__.py
++++ furo/src/furo/__init__.py
+@@ -267,8 +267,15 @@ def _builder_inited(app: sphinx.applicat
+             "This should not happen."
+         )
+ 
++    # furo.js is added as:
++    # <script src="_static/scripts/furo.js" type="module"></script>
++    # app.add_js_file parameters are appended the keyword type, which
++    # is allowed per the documentation of add_js_file; see:
++    # https://www.sphinx-doc.org/en/master/extdev/appapi.html
++    # at the anchor: sphinx.application.Sphinx.add_js_file
++    #
+     # Our JS file needs to be loaded as soon as possible.
+-    app.add_js_file("scripts/furo.js", priority=200)
++    app.add_js_file("scripts/furo.js", priority=200, type="module")
+ 
+     # 500 is the default priority for extensions, we want this after this.
+     app.add_css_file("styles/furo-extensions.css", priority=600)

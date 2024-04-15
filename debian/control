@@ -15,6 +15,7 @@ Build-Depends:
  dh-python,
  pybuild-plugin-pyproject,
  sassc,
+ node-normalize.css,
 Standards-Version: 4.6.2
 Homepage: https://pradyunsg.me/furo/
 Vcs-Browser: https://salsa.debian.org/debian/furo
@@ -29,7 +30,6 @@ Depends:
  python3-bs4,
  python3-pygments,
  python3-sphinx,
- node-normalize.css,
  sphinx-basic-ng
 Description: clean customisable Sphinx documentation theme
  Furo is a clean customisable Sphinx documentation theme ...
