@@ -1,3 +1,57 @@
+furo (2024.01.29+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2024.01.29+dfsg
+  * refreshed debian patches
+
+ -- Georges Khaznadar <georgesk@debian.org>  Wed, 31 Jan 2024 15:49:29 +0100
+
+furo (2023.09.10+dfsg-4) unstable; urgency=medium
+
+  * patched src/furo/__init__.py, to include the script furo.js with
+    an attribute type="module", in order to permit the syntax of its
+    first line:
+    ```import * as Gumshoe from "./gumshoe-patched.js";```
+    Closes: #1060897
+
+ -- Georges Khaznadar <georgesk@debian.org>  Fri, 19 Jan 2024 17:05:32 +0100
+
+furo (2023.09.10+dfsg-3) unstable; urgency=medium
+
+  * included the code from normalize.css into furo.css instead of
+    the include directive. Closes: #1060897
+  * moved node-normalize.css from dependencies to build-dependencies
+
+ -- Georges Khaznadar <georgesk@debian.org>  Fri, 19 Jan 2024 12:12:05 +0100
+
+furo (2023.09.10+dfsg-2) unstable; urgency=medium
+
+  * Patched furo.js to tackle out the case where gumshoe-patched.js does
+    not import an object named "Gumshoe". Closes: #1036437
+
+ -- Georges Khaznadar <georgesk@debian.org>  Sun, 24 Sep 2023 11:25:16 +0200
+
+furo (2023.09.10+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2023.09.10+dfsg
+  * Updated debian patches
+
+ -- Georges Khaznadar <georgesk@debian.org>  Thu, 21 Sep 2023 19:56:36 +0200
+
+furo (2023.08.19+dfsg-2) unstable; urgency=medium
+
+  * Team upload.
+  * Restore compatibility with Sphinx 5.3.
+    This is a stopgap measure until a new Sphinx release
+    can be uploaded to unstable. (Closes: #1050439)
+
+ -- Timo Röhling <roehling@debian.org>  Wed, 30 Aug 2023 10:07:24 +0200
+
+furo (2023.08.19+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2023.08.19+dfsg
+
+ -- Georges Khaznadar <georgesk@debian.org>  Thu, 24 Aug 2023 10:48:54 +0200
+
 furo (2023.07.26+dfsg-1) unstable; urgency=medium
 
   * New upstream version 2023.07.26+dfsg

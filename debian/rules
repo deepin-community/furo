@@ -11,8 +11,6 @@ CSSDIR  	= $(STATICBUILDDIR)/styles
 JSDIR   	= $(STATICBUILDDIR)/scripts
 PKGTHEMEDIR	= debian/furo/usr/lib/$(PYTHON3)/dist-packages/furo/theme/furo
 
-NORMALIZECSS 	= /javascript/normalize.css/normalize.css
-
 override_dh_auto_build:
 	dh_auto_build
 	# compile SASS files to CSS
@@ -21,7 +19,10 @@ override_dh_auto_build:
 	sassc $(SASSDIR)/furo-extensions.sass > $(CSSDIR)/furo-extensions.css
 	# fix one sass' caveat, which does not interpret
 	# '@import "~normalize.css"'
-	sed -i 's%~normalize.css%$(NORMALIZECSS)%' $(CSSDIR)/furo.css
+	cp /usr/share/javascript/normalize.css/normalize.css \
+	  $(CSSDIR)/furo.css.tmp
+	sed '1d'  $(CSSDIR)/furo.css >> $(CSSDIR)/furo.css.tmp
+	mv $(CSSDIR)/furo.css.tmp $(CSSDIR)/furo.css
 	# copy JS scripts: no uglification, no simplification
 	mkdir -p $(JSDIR)
 	install -m 644 src/furo/assets/scripts/* $(JSDIR)

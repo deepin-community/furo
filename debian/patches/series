@@ -1,2 +1,5 @@
 sass.patch
 pyproject.patch
+sphinx_5_3_compat.patch
+import-gumshoe.patch
+furo_js_as_module.patch

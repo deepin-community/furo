@@ -1,0 +1,64 @@
+From: =?utf-8?q?Timo_R=C3=B6hling?= <roehling@debian.org>
+Date: Wed, 30 Aug 2023 12:03:40 +0200
+Subject: Backwards-compatibility for Sphinx 5.3
+
+---
+ pyproject.toml       |  2 +-
+ src/furo/__init__.py | 31 ++++++++++++++++++++++++++++---
+ 2 files changed, 29 insertions(+), 4 deletions(-)
+
+Index: furo/pyproject.toml
+===================================================================
+--- furo.orig/pyproject.toml
++++ furo/pyproject.toml
+@@ -11,7 +11,7 @@ readme = "README.md"
+ requires-python = ">=3.8"
+ dependencies = [
+   "beautifulsoup4",
+-  "sphinx >= 6.0,<8.0",
++  "sphinx >= 5.3,<8.0",
+   "sphinx-basic-ng",
+   "pygments >= 2.7",
+ ]
+Index: furo/src/furo/__init__.py
+===================================================================
+--- furo.orig/src/furo/__init__.py
++++ furo/src/furo/__init__.py
+@@ -312,7 +312,27 @@ def _get_light_style(app: sphinx.applica
+ 
+ 
+ def _get_dark_style(app: sphinx.application.Sphinx) -> Style:
+-    dark_style = app.config.pygments_dark_style
++    dark_style = None
++    if sphinx.version_info < (6, 0):
++        # This is an evil hack
++        try:
++            if (
++                hasattr(app.config, "_raw_config")
++                and isinstance(app.config._raw_config, dict)
++                and "pygments_dark_style" in app.config._raw_config
++            ):
++                dark_style = app.config._raw_config["pygments_dark_style"]
++        except (AttributeError, KeyError) as e:
++            logger.warning(
++                (
++                    "Furo could not determine the value of `pygments_dark_style`. "
++                    "Falling back to using the value provided by Sphinx.\n"
++                    "Caused by %s"
++                ),
++                e,
++            )
++    if dark_style is None:
++        dark_style = app.config.pygments_dark_style
+     return cast(Style, PygmentsBridge("html", dark_style).formatter_args["style"])
+ 
+ 
+@@ -371,7 +391,7 @@ def _overwrite_pygments_css(
+ 
+ def setup(app: sphinx.application.Sphinx) -> Dict[str, Any]:
+     """Entry point for sphinx theming."""
+-    app.require_sphinx("6.0")
++    app.require_sphinx("5.3")
+ 
+     app.add_config_value(
+         "pygments_dark_style", default="native", rebuild="env", types=[str]
